@@ -13,4 +13,11 @@ server.on("connection", ws => {
       ws.send("hello from server!!!");
     }
   });
+
+  // 接続が切れた場合 -> clientが接続を切ったとき
+  ws.on("close", (code, reason) => {
+    console.log("I lost a client");
+    console.log(code);
+    console.log(reason);
+  });
 });
