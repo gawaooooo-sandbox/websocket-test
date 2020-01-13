@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>WebSocket sample 1</title>
+  </head>
+  <body>
+    <button id="btn">Hello</button>
+
+    <script>
+      // WebSocket接続を作成する
+      const socket = new WebSocket("ws://localhost:8080");
+
+      // 接続を開く
+      socket.addEventListener("open", e => {
+        console.log("open====");
+        console.log(e);
+        socket.send("Hello Server!");
+      });
+
+      // メッセージを待ち受ける
+      socket.addEventListener("message", e => {
+        console.log("message====");
+        console.log(e);
+        console.log("Message from server ", e.data);
+      });
+
+      socket.addEventListener("close", e => {
+        console.log("close====");
+        console.log(e);
+        console.log("接続が閉じられたときに呼び出されるイベント");
+      });
+
+      socket.addEventListener("error", e => {
+        console.log("error====");
+        console.log(e);
+        console.log("エラーが発生したときに呼び出されるイベント");
+      });
+
+      btn.addEventListener("click", e => {
+        socket.send("hello");
+      });
+    </script>
+  </body>
+</html>
